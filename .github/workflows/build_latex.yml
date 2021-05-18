@@ -5,9 +5,11 @@ on:
   workflow_dispatch:
 jobs:
   test:
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
     steps:
       - name: Set up Git repository
         uses: actions/checkout@v2
       - name: Github Action for LaTeX
-        uses: xu-cheng/latex-action@v2
+        uses: xu-cheng/latex-action@v2        
+        with:
+          root_file: latex/src/main.tex
