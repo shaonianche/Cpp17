@@ -1,0 +1,29 @@
+name: Build LaTeX
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+jobs:
+  test:
+    runs-on: windows-latest
+    steps:
+      - name: Set up Git repository
+        uses: actions/checkout@v2
+      - name: Compile basic LaTeX document
+        uses: ./
+        with:
+          root_file: main.tex
+          working_directory: latex/src/
+      - name: Compile LaTeX document with pre/post compile actions
+        uses: ./
+        with:
+          root_file: main.tex
+          working_directory: latex/src/
+          pre_compile: |
+            rm test.pdf
+          post_compile: |
+            ls test.pdf
+
+      - name: Check pdf files
+        run: |
+          file latex/main.pdf | grep -q ' PDF '
